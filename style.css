@@ -1,0 +1,19 @@
+.game-field {
+	max-width: 400px;
+	max-height: 400px;
+	margin: 100px auto;
+}
+
+.game-line {
+	display: flex;
+}
+
+.game-cell {
+	width: 100px;
+	height: 100px;
+	border: 1px solid;
+	font-size: 30px;
+	text-align: center;
+	line-height: 3;
+	background-color: #f6f9fdba;
+}
