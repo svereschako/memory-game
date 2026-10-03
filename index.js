@@ -1,4 +1,9 @@
-const field = createElement({parent: document.body, classes: ["game-field"]});
+const wrapper = createElement({parent: document.body, classes: ["game-wrapper"]});
+const info = createElement({parent: wrapper, classes: ["info"]});
+const steps = createElement({text: "Steps: 0", parent: info, classes: ["steps"]});
+const solved = createElement({text: "Solved: 0/8", parent: info, classes: ["solved"]});
+
+const field = createElement({parent: wrapper, classes: ["game-field"]});
 const elems = [];
 const arr = [
 	[0,0,1,1],
@@ -10,15 +15,41 @@ const clickedCells = [];
 let isPaired = false;
 let isSolved = false;
 let clickCount = 0;
+let slcount = 0;
+let stcount = 0;
 
+//let count = 0;
+/*for(let i=0;i<4;i++){
+	let line = createElement({parent: null, classes: ["game-line"]});
+	let arr = [];
 
+	for(let j=0;j<2;j++){
+		let cell = createElement({text: i+count++, parent: null, classes: ["game-cell"]});
+		let clone = cell.cloneNode(true);
+		//clone.textContent = i+j+1;
+		arr.push(cell);
+		arr.push(clone);
+	}
+	elems.push(arr);
+}*/
 
 //console.log(elems);
 //const shuffled = shffl(elems.flat());
 //console.log(shuffled);
 const shuffled = shffl(arr.flat());
 console.log(shuffled);
-
+//shffl(elems.flat()).forEach(el => {
+	//let line = createElement({parent: field, classes: ["game-line"]});
+	//el.forEach(elem => line.appendChild(elem));
+//});
+/*for(let i=0;i<shuffled.length;i++){
+	if(i==0 || i%4==0)
+		var line = createElement({parent: field, classes: ["game-line"]});
+	let arr = [];
+	for(let j=0;j<4;j++){
+		line.appendChild(shuffled[i]);
+	}
+}*/
 let array;
 let line;
 shuffled.forEach((el,ind,arr) => {
@@ -78,8 +109,15 @@ function cellHandler(e) {
 	e.target.style.backgroundColor = "transparent";
 	e.target.textContent = e.target.dataset.txt;
 	clickedCells.push(e.target);
-	if(clickedCells.length == 2 && clickedCells[0].dataset.txt == clickedCells[1].dataset.txt)
-		isSolved = true;
+	if(clickedCells.length == 2 ){
+		stcount++;
+		steps.textContent = `Steps: ${stcount}`;
+		if(clickedCells[0].dataset.txt == clickedCells[1].dataset.txt){
+			isSolved = true;
+			slcount++;
+			solved.textContent = `Solved: ${slcount}/8`;
+		}
+	}
 	if(clickedCells.length == 2 && isSolved){
 		isSolved = false;
 		clickedCells.forEach(el => el.removeEventListener("click", cellHandler));
