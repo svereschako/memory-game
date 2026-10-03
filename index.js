@@ -12,6 +12,10 @@ let isSolved = false;
 let clickCount = 0;
 
 
+
+//console.log(elems);
+//const shuffled = shffl(elems.flat());
+//console.log(shuffled);
 const shuffled = shffl(arr.flat());
 console.log(shuffled);
 
@@ -68,4 +72,25 @@ function shffl(array) {
   }
 
   return array;
+}
+
+function cellHandler(e) {
+	e.target.style.backgroundColor = "transparent";
+	e.target.textContent = e.target.dataset.txt;
+	clickedCells.push(e.target);
+	if(clickedCells.length == 2 && clickedCells[0].dataset.txt == clickedCells[1].dataset.txt)
+		isSolved = true;
+	if(clickedCells.length == 2 && isSolved){
+		isSolved = false;
+		clickedCells.forEach(el => el.removeEventListener("click", cellHandler));
+		clickedCells.length = 0;
+	}
+	else if(clickedCells.length == 2 && !isSolved)
+		setTimeout(() => {
+			clickedCells.forEach(el => {
+				el.style.backgroundColor = "";
+				el.textContent = "";				
+			});
+			clickedCells.length = 0;			
+		}, 1000);	
 }
