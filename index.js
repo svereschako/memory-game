@@ -18,38 +18,10 @@ let clickCount = 0;
 let slcount = 0;
 let stcount = 0;
 
-//let count = 0;
-/*for(let i=0;i<4;i++){
-	let line = createElement({parent: null, classes: ["game-line"]});
-	let arr = [];
 
-	for(let j=0;j<2;j++){
-		let cell = createElement({text: i+count++, parent: null, classes: ["game-cell"]});
-		let clone = cell.cloneNode(true);
-		//clone.textContent = i+j+1;
-		arr.push(cell);
-		arr.push(clone);
-	}
-	elems.push(arr);
-}*/
-
-//console.log(elems);
-//const shuffled = shffl(elems.flat());
-//console.log(shuffled);
 const shuffled = shffl(arr.flat());
 console.log(shuffled);
-//shffl(elems.flat()).forEach(el => {
-	//let line = createElement({parent: field, classes: ["game-line"]});
-	//el.forEach(elem => line.appendChild(elem));
-//});
-/*for(let i=0;i<shuffled.length;i++){
-	if(i==0 || i%4==0)
-		var line = createElement({parent: field, classes: ["game-line"]});
-	let arr = [];
-	for(let j=0;j<4;j++){
-		line.appendChild(shuffled[i]);
-	}
-}*/
+
 let array;
 let line;
 shuffled.forEach((el,ind,arr) => {
@@ -132,3 +104,14 @@ function cellHandler(e) {
 			clickedCells.length = 0;			
 		}, 1000);	
 }
+
+function showModal() {
+	const overlay = createElement({parent: document.body, classes: ["fixed-overlay"]});
+	const modal = createElement({text: `You won with ${stcount} steps!`, parent: overlay, classes: ["modal-window"]});
+	const btns = createElement({parent: modal, classes: ["wrapper-btn"]});
+	const ngbtn = createElement({tag: "button", text: "New game", parent: btns, classes: ["newgame-btn"]});
+	const clbtn = createElement({tag: "button", text: "Close", parent: btns, classes: ["close-btn"]});
+	clbtn.addEventListener("click", () => overlay.remove());
+}
+
+showModal();
