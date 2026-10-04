@@ -1,7 +1,8 @@
 const wrapper = createElement({parent: document.body, classes: ["game-wrapper"]});
-const info = createElement({parent: wrapper, classes: ["info"]});
-const steps = createElement({text: "Steps: 0", parent: info, classes: ["steps"]});
-const solved = createElement({text: "Solved: 0/8", parent: info, classes: ["solved"]});
+const panel = createElement({parent: wrapper, classes: ["info-panel"]});
+const ngmbtn = createElement({text: "New game", parent: panel, classes: ["newgame-btn"]});
+const steps = createElement({text: "Steps: 0", parent: panel, classes: ["steps"]});
+const solved = createElement({text: "Solved: 0/8", parent: panel, classes: ["solved"]});
 
 const field = createElement({parent: wrapper, classes: ["game-field"]});
 const elems = [];
@@ -19,24 +20,26 @@ let slcount = 0;
 let stcount = 0;
 
 
-const shuffled = shffl(arr.flat());
-console.log(shuffled);
-
-let array;
-let line;
-shuffled.forEach((el,ind,arr) => {
-	if(ind==0 || ind%4==0){
-		line = createElement({parent: field, classes: ["game-line"]});
-		array = [];
-	}	
-	let cell = createElement({parent: line, classes: ["game-cell"]});
-	cell.dataset.txt = el;
-	cell.addEventListener("click", cellHandler);
-	array.push(cell);
-	if(ind==0 || ind%4==0)	
-		elems.push(array);
-});
-console.log(elems);
+function createField() {
+	const shuffled = shffl(arr.flat());
+	console.log(shuffled);
+	let array;
+	let line;
+	shuffled.forEach((el,ind,arr) => {
+		if(ind==0 || ind%4==0){
+			line = createElement({parent: field, classes: ["game-line"]});
+			array = [];
+		}	
+		let cell = createElement({parent: line, classes: ["game-cell"]});
+		cell.dataset.txt = el;
+		cell.addEventListener("click", cellHandler);
+		array.push(cell);
+		if(ind==0 || ind%4==0)	
+			elems.push(array);
+	});
+	console.log(elems);
+}
+createField();
 function createElement(options) {
  // Default values
  const { tag = 'div', text = '', parent, classes = [] } = options;
@@ -80,7 +83,7 @@ function shffl(array) {
 function cellHandler(e) {
 	e.target.style.backgroundColor = "transparent";
 	e.target.textContent = e.target.dataset.txt;
-	clickedCells.push(e.target);
+	clickedCells.push(e.target);	
 	if(clickedCells.length == 2 ){
 		stcount++;
 		steps.textContent = `Steps: ${stcount}`;
@@ -88,6 +91,8 @@ function cellHandler(e) {
 			isSolved = true;
 			slcount++;
 			solved.textContent = `Solved: ${slcount}/8`;
+			if(solved == 8)
+				showModal();
 		}
 	}
 	if(clickedCells.length == 2 && isSolved){
@@ -111,7 +116,26 @@ function showModal() {
 	const btns = createElement({parent: modal, classes: ["wrapper-btn"]});
 	const ngbtn = createElement({tag: "button", text: "New game", parent: btns, classes: ["newgame-btn"]});
 	const clbtn = createElement({tag: "button", text: "Close", parent: btns, classes: ["close-btn"]});
+	ngbtn.addEventListener("click", () => {
+		stcount = 0;
+		slcount = 0;
+		steps.textContent = `Steps: ${stcount}`;
+		solved.textContent = `Solved: ${slcount}/8`;
+		field.innerHTML = "";
+		elems.length = 0;
+		createField();
+		overlay.remove();
+	}); 
 	clbtn.addEventListener("click", () => overlay.remove());
 }
 
-showModal();
+ngmbtn.addEventListener("click", () => {
+	stcount = 0;
+	slcount = 0;
+	steps.textContent = `Steps: ${stcount}`;
+	solved.textContent = `Solved: ${slcount}/8`;
+	field.innerHTML = "";
+	elems.length = 0;
+	createField();
+});
+//showModal();
