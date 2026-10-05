@@ -157,7 +157,7 @@ ngmbtn.addEventListener("click", () => {
 	slcount = 0;
 	steps.textContent = `Steps: ${stcount}`;
 	solved.textContent = `Solved: ${slcount}/8`;
-	field.innerHTML = "";
+	field.textContent = "";
 	elems.length = 0;
 	createField();
 });
