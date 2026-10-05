@@ -1,11 +1,28 @@
+body {
+	font-family: "Inter", sans-serif;
+}
+
 .info-panel {
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: center;
+	column-gap: 70px;
 }
 
 .newgame-btn {
 	border: 1px solid;
-	border-radius: 5px;
+	border-radius: 8px;
+	padding: 3px;
+	color: #FFF;
+    background-color: darkmagenta;
+	cursor: pointer;
+}
+
+.steps{
+	width: 80px;
+}
+
+.solved {
+	width: 100px;
 }
 
 .game-field {
@@ -26,6 +43,7 @@
 	text-align: center;
 	line-height: 3;
 	background-color: #f6f9fdba;
+	background-size: 100% 100%;
 	cursor: pointer;
 }
 

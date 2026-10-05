@@ -7,10 +7,29 @@ const solved = createElement({text: "Solved: 0/8", parent: panel, classes: ["sol
 const field = createElement({parent: wrapper, classes: ["game-field"]});
 const elems = [];
 const arr = [
-	[0,0,1,1],
-	[2,2,3,3],
-	[4,4,5,5],
-	[6,6,7,7]
+	[{creature: "fish", src: "./assets/blue-fish.jpg"},
+	 {creature: "fish", src: "./assets/blue-fish.jpg"},
+	 {creature: "jellyfish", src: "./assets/pink-jellyfish.jpg"},
+	 {creature: "jellyfish", src: "./assets/pink-jellyfish.jpg"}
+	],
+	[
+	 {creature: "whale-and-fish", src: "./assets/whale-and-fish.jpg"},
+	 {creature: "whale-and-fish", src: "./assets/whale-and-fish.jpg"},
+	 {creature: "whale", src: "./assets/whale.png"},
+	 {creature: "whale", src: "./assets/whale.png"}
+	],
+	[
+	 {creature: "octopus", src: "./assets/octopus.png"},
+	 {creature: "octopus", src: "./assets/octopus.png"},
+	 {creature: "shark", src: "./assets/shark.jpg"},
+	 {creature: "shark", src: "./assets/shark.jpg"}
+	],
+	[
+	 {creature: "yellow-fish", src: "./assets/yellow-fish.png"},
+	 {creature: "yellow-fish", src: "./assets/yellow-fish.png"},
+	 {creature: "lobster", src: "./assets/lobster.png"},
+	 {creature: "lobster", src: "./assets/lobster.png"}
+	]
 ];
 const clickedCells = [];
 let isPaired = false;
@@ -31,7 +50,9 @@ function createField() {
 			array = [];
 		}	
 		let cell = createElement({parent: line, classes: ["game-cell"]});
-		cell.dataset.txt = el;
+		cell.dataset.txt = el.creature;
+		cell.dataset.src = el.src;
+		//cell.style.backgroundImage = el.src;
 		cell.addEventListener("click", cellHandler);
 		array.push(cell);
 		if(ind==0 || ind%4==0)	
@@ -82,7 +103,8 @@ function shffl(array) {
 
 function cellHandler(e) {
 	e.target.style.backgroundColor = "transparent";
-	e.target.textContent = e.target.dataset.txt;
+	//e.target.textContent = e.target.dataset.txt;
+	e.target.style.backgroundImage = `url(${e.target.dataset.src})`;
 	clickedCells.push(e.target);	
 	if(clickedCells.length == 2 ){
 		stcount++;
@@ -91,7 +113,7 @@ function cellHandler(e) {
 			isSolved = true;
 			slcount++;
 			solved.textContent = `Solved: ${slcount}/8`;
-			if(solved == 8)
+			if(slcount == 8)
 				showModal();
 		}
 	}
@@ -104,7 +126,8 @@ function cellHandler(e) {
 		setTimeout(() => {
 			clickedCells.forEach(el => {
 				el.style.backgroundColor = "";
-				el.textContent = "";				
+				el.textContent = "";
+				el.style.backgroundImage = "";				
 			});
 			clickedCells.length = 0;			
 		}, 1000);	
