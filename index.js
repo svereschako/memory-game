@@ -144,7 +144,7 @@ function showModal() {
 		slcount = 0;
 		steps.textContent = `Steps: ${stcount}`;
 		solved.textContent = `Solved: ${slcount}/8`;
-		field.innerHTML = "";
+		field.textContent = "";
 		elems.length = 0;
 		createField();
 		overlay.remove();
