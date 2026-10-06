@@ -21,8 +21,8 @@ const arr = [
 	[
 	 {creature: "octopus", src: "./assets/octopus.png"},
 	 {creature: "octopus", src: "./assets/octopus.png"},
-	 {creature: "shark", src: "./assets/shark.jpg"},
-	 {creature: "shark", src: "./assets/shark.jpg"}
+	 {creature: "shark", src: "./assets/shark.png"},
+	 {creature: "shark", src: "./assets/shark.png"}
 	],
 	[
 	 {creature: "yellow-fish", src: "./assets/yellow-fish.png"},
@@ -137,8 +137,8 @@ function showModal() {
 	const overlay = createElement({parent: document.body, classes: ["fixed-overlay"]});
 	const modal = createElement({text: `You won with ${stcount} steps!`, parent: overlay, classes: ["modal-window"]});
 	const btns = createElement({parent: modal, classes: ["wrapper-btn"]});
-	const ngbtn = createElement({tag: "button", text: "New game", parent: btns, classes: ["newgame-btn"]});
-	const clbtn = createElement({tag: "button", text: "Close", parent: btns, classes: ["close-btn"]});
+	const ngbtn = createElement({tag: "button", text: "New game", parent: btns, classes: ["ngame-btn", "modal-btn"]});
+	const clbtn = createElement({tag: "button", text: "Close", parent: btns, classes: ["close-btn", "modal-btn"]});
 	ngbtn.addEventListener("click", () => {
 		stcount = 0;
 		slcount = 0;
