@@ -6,6 +6,7 @@ const solved = createElement({text: "Solved: 0/8", parent: panel, classes: ["sol
 
 const field = createElement({parent: wrapper, classes: ["game-field"]});
 const elems = [];
+const slelems = [];
 const arr = [
 	[{creature: "fish", src: "./assets/blue-fish.jpg"},
 	 {creature: "fish", src: "./assets/blue-fish.jpg"},
@@ -106,7 +107,7 @@ function cellHandler(e) {
 	//e.target.textContent = e.target.dataset.txt;
 	e.target.style.backgroundImage = `url(${e.target.dataset.src})`;
 	clickedCells.push(e.target);	
-	if(clickedCells.length == 2 ){
+	if(clickedCells.length == 2 ){		
 		stcount++;
 		steps.textContent = `Steps: ${stcount}`;
 		if(clickedCells[0].dataset.txt == clickedCells[1].dataset.txt){
@@ -120,17 +121,21 @@ function cellHandler(e) {
 	if(clickedCells.length == 2 && isSolved){
 		isSolved = false;
 		clickedCells.forEach(el => el.removeEventListener("click", cellHandler));
-		clickedCells.length = 0;
+		clickedCells.forEach(el => slelems.push(el));
+		clickedCells.length = 0;		
 	}
-	else if(clickedCells.length == 2 && !isSolved)
+	else if(clickedCells.length == 2 && !isSolved){
+		elems.flat().filter((el) => slelems.indexOf(el) == -1).forEach(el => el.removeEventListener("click", cellHandler));
 		setTimeout(() => {
 			clickedCells.forEach(el => {
 				el.style.backgroundColor = "";
-				el.textContent = "";
+				//el.textContent = "";
 				el.style.backgroundImage = "";				
 			});
-			clickedCells.length = 0;			
-		}, 1000);	
+			clickedCells.length = 0;
+			elems.flat().filter((el) => slelems.indexOf(el) == -1).forEach(el => el.addEventListener("click", cellHandler));		
+		}, 1000);
+	}	
 }
 
 function showModal() {
@@ -146,6 +151,7 @@ function showModal() {
 		solved.textContent = `Solved: ${slcount}/8`;
 		field.textContent = "";
 		elems.length = 0;
+		slelems.length = 0;
 		createField();
 		overlay.remove();
 	}); 
@@ -159,6 +165,7 @@ ngmbtn.addEventListener("click", () => {
 	solved.textContent = `Solved: ${slcount}/8`;
 	field.textContent = "";
 	elems.length = 0;
+	slelems.length = 0;
 	createField();
 });
 //showModal();
