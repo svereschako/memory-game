@@ -8,8 +8,8 @@ const field = createElement({parent: wrapper, classes: ["game-field"]});
 const elems = [];
 const slelems = [];
 const arr = [
-	[{creature: "fish", src: "./assets/blue-fish.jpg"},
-	 {creature: "fish", src: "./assets/blue-fish.jpg"},
+	[{creature: "fish", src: "./assets/fish.png"},
+	 {creature: "fish", src: "./assets/fish.png"},
 	 {creature: "jellyfish", src: "./assets/pink-jellyfish.jpg"},
 	 {creature: "jellyfish", src: "./assets/pink-jellyfish.jpg"}
 	],

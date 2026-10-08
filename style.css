@@ -17,12 +17,25 @@ body {
 	cursor: pointer;
 }
 
+.newgame-btn:hover {
+	color: #f8e015;
+	border-color: darkmagenta; 
+}
+
 .steps{
-	width: 80px;
+	width: 80px;	
 }
 
 .solved {
 	width: 100px;
+}
+
+.steps, .solved {	
+	background-color: #60a9e8;
+	color: #FFF;
+	border-radius: 8px;
+	text-align: center;
+	line-height: 2;
 }
 
 .game-field {
